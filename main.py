@@ -1,21 +1,13 @@
-import argparse
-
 from agent import generate_content
+from cli import get_user_input
 from client import get_client
-
-client = get_client()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Chatbot")
-    parser.add_argument("user_prompt", type=str, help="User prompt")
-    args = parser.parse_args()
+    client = get_client()
+    messages, is_verbose = get_user_input()
 
-    messages = [
-        {"role": "user", "content": args.user_prompt},
-    ]
-
-    content, _ = generate_content(client, messages)
+    content, _ = generate_content(client, messages, is_verbose)
 
     print(content)
 
