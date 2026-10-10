@@ -2,6 +2,30 @@ import os
 import subprocess
 from subprocess import CompletedProcess
 
+schema_run_python_file = {
+    "type": "function",
+    "function": {
+        "name": "run_python_file",
+        "description": "Executes a specified Python (.py) file and returns its execution output (STDOUT, STDERR, and exit code).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "The path to the Python file to execute, relative to the working directory. Must be a file with a .py extension.",
+                },
+                "args": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional list of command-line arguments to pass to the Python script.",
+                },
+            },
+            "required": ["file_path"],
+            "additionalProperties": False,
+        },
+    },
+}
+
 
 def run_python_file(
     working_directory: str, file_path: str, args: list[str] | None = None
